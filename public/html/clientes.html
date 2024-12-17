@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../estilos/estilo.css" type="text/css" media="screen">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/ionicons@5.5.2/dist/css/ionicons.min.css">
+   <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script> 
+   <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+   <style> ion-icon { font-size: 48px; /* Ajusta este valor para cambiar el tamaño del ícono */ color: #ddd4cd;  /* Puedes cambiar el color si quieres */ } </style>
+</head>
+<body>
+    
+    <header>
+        <nav>
+            <table>
+                <tr>
+                    <td>
+                        <a href="index.html">
+                            <div class="logo">
+                                <img src="images/logomini.png" alt="Logo de La Desesperanza">
+                            </div>
+                        </a>
+                    </td>
+                    <td><a href="productos.html">Productos</a></td>
+                    <td><a href="clientes.html">Clientes</a></td>
+                    <td><a href="pedidos.html">Pedidos</a></td>
+                    <td><a href="carrito.html"><ion-icon name="cart-outline" class="minis"></ion-icon></a></td>
+                </tr>
+            </table>
+        </nav>
+        <a href="perfil.html" class="user-icon">
+            <ion-icon name="person-outline"></ion-icon>
+        </a>
+    
+    </header>
+    <main>
+        <br><br><br><br>
+  
+        <h1>Clientes</h1>
+        <br>
+        <p>Lo sentimos, no tienes acceso a esta seccion, solo los administradores pueden entrar aquí</p>
+    </main>
+    <script>
+        async function checar() {
+                try {
+                    // Llamar a la ruta '/check-productos'
+                    const response = await fetch('/check-clientes');
+
+                    // Redirigir a la página que responde el servidor
+                    if (response.redirected) {
+                        window.location.href = response.url;
+                    } else {
+                        console.error('Error en la redirección:', response.status);
+                    }
+                } catch (error) {
+                    console.error('Error al llamar a /check-clientes:', error);
+                }
+            }
+            async function cargar() {
+                
+                await checar();
+            }        
+            window.onload = cargar;
+    </script>
+    
+</body>
+</html>

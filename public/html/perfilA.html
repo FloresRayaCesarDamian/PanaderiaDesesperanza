@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perfil</title>
+    <link rel="stylesheet" href="../estilos/estilo.css">
+    <link rel="stylesheet" href="../estilos/estilo3.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/ionicons@5.5.2/dist/css/ionicons.min.css">
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script> 
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+    <style>
+        ion-icon {
+            font-size: 48px;
+            color: #ddd4cd;
+        }
+
+        /* Estilo para la modal */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.4);
+        }
+        
+        body {
+            text-align: left;
+            margin: 0;
+            padding: 0;
+        }
+
+        .modal-content {
+            background-color: #ddd4cd;
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 50%;
+            max-width: 400px;
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .profile-container .person {
+            font-size: 300px !important; /* Usa !important para forzar el tamaño */
+            color: #2f3335;
+        }
+        .profile-container .editin {
+            font-size: 30px !important; /* Usa !important para forzar el tamaño */
+            color: #2f3335;
+        }
+
+
+        .profile-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .profile-table td {
+            padding: 15px;
+            vertical-align: top;
+        }
+
+        /* Estilo de la columna de icono */
+        .icon-column {
+            width: 100px;
+            text-align: center;
+        }
+        
+
+        /* Estilo de la columna de información */
+        .info-column {
+            width: calc(100% - 120px);
+        }
+
+        /* Contenedor centrado */
+        .init {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 20px;
+        }
+
+        /* Nueva sección para el contenedor con icono y datos */
+        .profile-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            text-align: left;
+            background-color: #ddd4cd; /* Fondo diferente para el contenedor */
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra para el contenedor */
+        }
+
+        .profile-container ion-icon {
+            font-size: 150px; /* Hago el ícono más grande */
+        }
+
+        .data-container {
+            position: relative; /* Necesario para posicionar el icono dentro de este contenedor */
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            width: 700px;
+            padding: 30px;
+            border: 1px solid #ddd4cd;
+            border-radius: 8px;
+            box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
+            text-align: left;
+            background-color: #ddd4cd;
+        }
+        .data-container .edit {
+            position: absolute;
+            top: 10px; /* Ajusta la distancia desde la parte superior */
+            right: 10px; /* Ajusta la distancia desde el lado derecho */
+            font-size: 30px; /* Tamaño reducido del icono */
+            color: #2f3335; /* Color del icono */
+            background-color: #ddd4cd; /* Fondo del área del icono */
+            border-radius: 50%; /* Si quieres un círculo detrás del icono */
+            padding: 5px; /* Espaciado alrededor del icono */
+            box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.2); /* Sombra para resaltar el icono */
+
+
+        }
+        .align-right {
+            float: right;
+            text-decoration: none; /* Opcional, para personalizar el enlace */
+            color: #2f3335; /* Opcional, para mantener el estilo del texto */
+        }
+
+        /* Estilo de los botones para cada dato */
+        .update-btn {
+            margin-top: 10px;
+        }
+
+        /* Botones juntos */
+        .buttons-container {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        h2 {
+            text-align: center; /* Centra el título */
+            margin-bottom: 20px;
+        }
+        
+    </style>
+</head>
+<body>
+
+    <header>
+        <nav>
+            <table>
+                <tr>
+                    <td>
+                        <a href="index.html">
+                            <div class="logo">
+                                <img src="images/logomini.png" alt="Logo de La Desesperanza">
+                            </div>
+                        </a>
+                    </td>
+                    <td><a href="productos.html">Productos</a></td>
+                    <td><a href="clientes.html">Clientes</a></td>
+                    <td><a href="pedidos.html">Pedidos</a></td>
+                </tr>
+            </table>
+        </nav>
+        <a href="perfil.html" class="user-icon">
+            <ion-icon name="person-outline"></ion-icon>
+        </a>
+    
+    </header>
+
+    <main>
+        <br><br><br>
+        <div class="init">
+            <h1>TU PERFIL</h1>
+            <hr class="divider">
+        </div>
+
+        <div class="profile-container">
+            <ion-icon name="person-circle-outline" class="person"></ion-icon>
+            <div class="data-container">
+                <ion-icon name="create-outline" class="edit"></ion-icon>
+                <h2><span id="nombre-usuario"></span></h2>
+                <p><strong>Correo:</strong><a href="#" onclick="abrirModalModCorreo()" class="align-right">Cambiar</a><br> <span id="correo"></span> </p>
+                <p><strong>Contraseña:</strong><a href="#" onclick="abrirModalModContra()"  class="align-right">Cambiar</a><br> <span id="contraseña"></span></p>
+                <div class="buttons-container">
+                    <button onclick="cerrarSesion()" class="login-button">Cerrar Sesión</button>
+                    <button onclick="abrirModal1()" class="login-button">Eliminar Cuenta</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal Eliminar -->
+        <div id="modal-eliminar" class="modal">
+            <div class="modal-content">
+                <span class="close" onclick="cerrarModalEliminar()">&times;</span>
+                <h2>Elimina Usuario</h2>
+                <br>
+                <form id="form-eliminar" action="/eliminarusuario" method="POST">
+                    <label for="password">Contraseña:</label>
+                    <input type="password" id="password" name="password"  >
+                    <button type="button" class="login-button" onclick="confirmarEliminar()">Eliminar</button>
+                </form>
+            </div>
+        </div>
+
+
+        <!-- Modal Modificar Nombre -->
+        <div id="modal-mod-name" class="modal">
+            <div class="modal-content">
+                <span class="close" onclick="cerrarModalModName()">&times;</span>
+                <h2>Modificar Nombre de Usuario</h2>
+                <br>
+                <form id="form-mod-name" action="/ModificarName" method="POST">
+                    <label for="name">Nuevo Nombre de Usuario:</label>
+                    <input type="text" id="name" name="name"  >
+                    <label for="password">Contraseña:</label>
+                    <input type="password" id="passwordName" name="passwordName"  >
+                    <button type="button" class="login-button" onclick="confirmarModificarName()">Modificar</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Modal Modificar Correo -->
+        <div id="modal-mod-correo" class="modal">
+            <div class="modal-content">
+                <span class="close" onclick="cerrarModalModCorreo()">&times;</span>
+                <h2>Modificar Correo</h2>
+                <br>
+                <form id="form-mod-correo" action="/ModificarCorreo" method="POST">
+                    <label for="correo">Correo Nuevo:</label>
+                    <input type="email" id="email" name="email"  >
+                    <label for="correo">Contraseña:</label>
+                    <input type="password" id="passwordCorreo" name="passwordCorreo"  >
+                    <button type="button" class="login-button" onclick="confirmarModificarCorreo()">Modificar</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Modal Modificar Contraseña -->
+        <div id="modal-mod-contra" class="modal">
+            <div class="modal-content">
+                <span class="close" onclick="cerrarModalModContra()">&times;</span>
+                <h2>Modificar Contraseña</h2>
+                <br>
+                <form id="form-mod-contra" action="/ModificarContrasena" method="POST">
+                    <label for="password">Contraseña Actual:</label>
+                    <input type="password" id="passwordContra" name="passwordContra"  >
+                    <label for="newpassword">Nueva Contraseña:</label>
+                    <input type="password" id="newpassword" name="newpassword"  >
+                    <button type="button" class="login-button" onclick="confirmarModificarContra()">Modificar</button>
+                </form>
+            </div>
+        </div>
+    <script>
+
+//Eliminar cuenta
+
+function abrirModalEliminar() {
+        document.getElementById('modal-eliminar').style.display = 'block';
+    }
+
+    function cerrarModalEliminar() {
+        document.getElementById('modal-eliminar').style.display = 'none';
+    }
+
+
+    function confirmarEliminar() {
+        const password = document.getElementById("password").value;
+        const submitButton = document.querySelector('.login-button');
+
+        if (password.length === 0) {
+            alert("Ingrese la contraseña");
+            return;
+        }
+
+        const confirmacion = confirm("¿Está seguro de eliminar el usuario?");
+        if (confirmacion) {
+            submitButton.disabled = true; // Deshabilita el botón para evitar múltiples envíos
+            document.getElementById("form-eliminar").submit();
+        }
+    }
+
+    document.getElementById("form-eliminar").addEventListener("submit", () => {
+        const modalContent = document.querySelector(".modal-content");
+        modalContent.innerHTML = "<p>Procesando...</p>";
+    });
+
+//Cerrar sesion
+
+        // Funciones para los botones
+        function cerrarSesion() {
+            const confirmacion = confirm("¿Está seguro de que desea cerrar la sesión?");
+            if (confirmacion) {
+                window.location.href = '/logout';
+            }
+        }
+
+//Modificar nombre
+
+        function abrirModalModName() {
+            document.getElementById('modal-mod-name').style.display = 'block';
+        }
+
+        function cerrarModalModName() {
+            document.getElementById('modal-mod-name').style.display = 'none';
+        }
+
+        function confirmarModificarName() {
+            const password = document.getElementById("passwordName").value;
+            const name = document.getElementById("name").value;
+
+            if (name.length === 0) {
+                alert("Ingrese un nombre de usuario");
+                return;
+            }
+            if (password.length === 0) {
+                alert("Ingrese la contraseña");
+                return;
+            }
+            const confirmacion = confirm("¿Está seguro de modificar el nombre de usuario?");
+            if (confirmacion) {
+                document.getElementById("form-mod-name").submit();
+            }
+        }
+
+//Modificar correo
+
+        function abrirModalModCorreo() {
+            document.getElementById('modal-mod-correo').style.display = 'block';
+        }
+
+        function cerrarModalModCorreo() {
+            document.getElementById('modal-mod-correo').style.display = 'none';
+        }
+        function confirmarModificarCorreo() {
+            const password= document.getElementById("passwordCorreo").value;
+            const correo= document.getElementById("email").value;
+            
+            if (correo.length==0) {
+                alert("Ingrese un correo");
+                return;
+            }
+            if (password.length==0) {
+                
+                alert("Ingrese la contraseña");
+                return;
+            }
+            const confirmacion = confirm("¿Está seguro de modificar el correo?");
+            if (confirmacion) {
+                document.getElementById("form-mod-correo").submit();
+            }
+        }
+
+//Modificar contraseña
+
+        function abrirModalModContra() {
+            document.getElementById('modal-mod-contra').style.display = 'block';
+        }
+
+        function cerrarModalModContra() {
+            document.getElementById('modal-mod-contra').style.display = 'none';
+        }
+        function confirmarModificarContra() {
+            const password= document.getElementById("passwordContra").value;
+            const newpassword= document.getElementById("newpassword").value;
+            
+            if (newpassword.length==0) {
+                alert("Ingrese una contraseña nueva");
+                return;
+            }
+            if (password.length==0) {
+                alert("Ingrese la contraseña actual");
+                return;
+            }
+            
+            const confirmacion = confirm("¿Está seguro de modificar la contraseña?");
+            if (confirmacion) {
+                document.getElementById("form-mod-contra").submit();
+            }
+        }
+
+        async function cargarDatosUsuario() {
+            try {
+                const response = await fetch('/ExtraerUsuario');
+                if (!response.ok) throw new Error(`Error al obtener usuario: ${response.statusText}`);
+                const data = await response.json();
+
+                document.getElementById('nombre-usuario').innerText = data.nombre || 'Sin nombre';
+                document.getElementById('correo').innerText = data.correo || 'Sin correo';
+                document.getElementById('contraseña').innerText = data.contrasena || 'Sin contraseña';
+                
+            } catch (error) {
+                console.error('Error al cargar datos del usuario:', error);
+                document.getElementById('mensaje-error').innerText = 'Ocurrió un error al cargar los datos. Inténtalo de nuevo más tarde.';
+            }
+        }
+        document.addEventListener('DOMContentLoaded', (event) => {
+            cargarDatosUsuario();
+        });
+        document.addEventListener('DOMContentLoaded', (event) => {
+            const editIcon = document.querySelector('.edit'); 
+            editIcon.addEventListener('click', abrirModalModName);
+        });
+
+        async function checar() {
+            try {
+                const response = await fetch('/check-perfilA');
+
+                if (response.redirected) {
+                    window.location.href = response.url;
+                } else {
+                    console.error('Error en la redirección:', response.status);
+                }
+            } catch (error) {
+                console.error('Error al llamar a /check-perfilA:', error);
+            }
+        }
+        
+        async function cargar() {
+            await checar();
+            await cargarDatosUsuario();
+        }
+
+        window.onload = cargar;
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Iniciar Sesión</title>
+    <link rel="stylesheet" href="../estilos/estilo.css"> <!-- Cambia a estilo.css -->
+    <link rel="stylesheet" href="../estilos/estilo2.css">   
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/ionicons@5.5.2/dist/css/ionicons.min.css">
+   <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script> 
+   <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+   <style> ion-icon { font-size: 48px; /* Ajusta este valor para cambiar el tamaño del ícono */ color: rgb(255, 255, 255); /* Puedes cambiar el color si quieres */ } </style>
+</head>
+
+<body>
+    
+    <header>
+        <nav>
+            <table>
+                <tr>
+                    <td>
+                        <a href="index.html">
+                            <div class="logo">
+                                <img src="images/logomini.png" alt="Logo de La Desesperanza">
+                            </div>
+                        </a>
+                    </td>
+                    <td><a href="productos.html">Productos</a></td>
+                    <td><a href="pedidos.html">Pedidos</a></td>
+                </tr>
+            </table>
+        </nav>
+        <a href="perfil.html" class="user-icon">
+            <ion-icon name="person-outline"></ion-icon>
+        </a>
+    
+    </header>
+    <div class="sesion">
+        <div class="login-container">
+            <h2>INICIAR SESIÓN</h2>
+            <hr class="divider">
+            <br>
+            
+            <form action="/login" method="POST">
+                <label for="nombre">Nombre de usuario:</label>
+                <input type="text" id="nombre" name="nombre">
+                
+                <label for="password">Contraseña:</label>
+                <input type="password" id="password" name="password">
+                
+                <br>
+                
+                <button type="submit" class="login-button">INICIAR SESIÓN</button>
+                
+                
+            </form>
+
+            <p class="register-text">¿Aún no tienes cuenta? <a href="registrar.html">REGÍSTRATE!</a></p>
+        </div>
+    </div>
+
+    
+</body>
+</html>

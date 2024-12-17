@@ -1,0 +1,235 @@
+    /* Estilo general */
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: 'Cinzel', serif;
+    }
+
+    body {
+        background-color: #ddd4cd;
+        color: #2f3335;
+        text-align: center;
+        font-family: 'Cinzel', serif;
+    }
+
+    /* Estilos para el header */
+    header {
+        font-family: 'Cinzel', serif;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 15px 20px;
+        background-color: #2f3335;
+        color: #ddd4cd;
+        position: fixed; /* Fija el encabezado en la parte superior */
+        top: 0; /* Coloca el encabezado en la parte superior de la ventana */
+        left: 0; /* Alinea el encabezado a la izquierda */
+        right: 0; /* Alinea el encabezado a la derecha */
+        z-index: 1000; /* Asegura que el encabezado esté por encima de otros elementos */
+       
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    header .logo img {
+        height: 50px;
+    }
+
+    /* Estilos para la tabla de navegación */
+    nav table {
+        margin: 0 auto;
+    }
+
+    nav td {
+        padding: 0 15px;
+    }
+
+    nav a {
+        color: #ddd4cd;
+        text-decoration: none;
+        font-size: 1rem;
+    }
+
+    nav a:hover {
+        color: #bfb59e;
+    }
+
+    .user-icon img {
+        height: 40px;
+        cursor: pointer;
+    }
+
+    /* Estilos para el cuerpo */
+    main {
+        padding: 40px 20px;
+    }
+
+    main h1 {
+        margin-top: 20px;
+        font-size: 2.5rem;
+        color: #2f3335;
+    }
+
+    main img {
+        max-width: 100%;
+        height: auto;
+        margin-top: 20px;
+    }
+
+    /* Estilos para centrar la tabla */
+    .table-container {
+        display: flex;
+        justify-content: center; /* Centrar horizontalmente */
+        margin-top: 20px; /* Espaciado superior */
+    }
+
+    .product-table {
+        width: 80%; /* Ajusta el ancho de la tabla según sea necesario */
+        margin: 0 auto; /* Centro automático */
+        border-collapse: collapse;
+    }
+
+    .product-table img {
+        width: 100px; /* Ajusta el tamaño según tus necesidades */
+        height: auto;
+    }
+
+    .product-table td {
+        text-align: center;
+        padding: 10px;
+        border: 1px solid #ddd;
+        background-color: #ddd4cd;
+        position: relative;
+    }
+
+    .product-table tr:hover {
+        background-color: #f1f1f1;
+    }
+
+    .product-number {
+        position: absolute;
+        top: 5px;
+        left: 5px;
+        font-weight: bold;
+        color: #2f3335; /* Cambia el color si es necesario */
+        background-color: white; /* Color de fondo para el número */
+        border-radius: 3px;
+        padding: 2px 5px;
+        font-size: 1rem;
+    }
+
+    .product-name {
+        font-weight: bold;
+        display: block;
+        margin-top: 10px;
+    }
+
+    .product-price {
+        color: white; /* Color de precio similar al hover del nav */
+        font-weight: bold;
+        margin-top: 5px;
+    }
+
+    /* Estilos para las tarjetas de producto */
+    .product-container {
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+        flex-wrap: wrap;
+        margin-top: 20px;
+    }
+
+    .product-card {
+        width: 200px;
+        border: 1px solid white;
+        border-radius: 8px;
+        padding: 15px;
+        text-align: center;
+        background-color: white;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        position: relative;
+    }
+
+    .product-card img {
+        width: 100%;
+        height: auto;
+        border-radius: 4px;
+    }
+
+    .product-card .product-number {
+        position: absolute;
+        top: 5px;
+        left: 5px;
+        font-weight: bold;
+        color: #2f3335;
+        background-color: white;
+        border-radius: 50%;
+        padding: 5px;
+        font-size: 0.9rem;
+        width: 30px;
+        height: 30px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .product-card .product-name {
+        display: block;
+        font-weight: bold;
+        margin-top: 10px;
+        color: #2f3335;
+    }
+
+    .product-card .product-price {
+        display: block;
+        position: absolute;
+        bottom: 5px;
+        right: 15px;
+        font-weight: bold;
+        color: #2f3335;
+        background-color: white;
+        border-radius: 50%;
+        padding: 5px;
+        font-size: 0.9rem;
+        width: 30px;
+        height: 30px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+
+    .ordenar-icon {
+        position: fixed; /* Fija la posición en la pantalla */
+        right: 20px; /* Espacio desde el lado derecho */
+        top: 40%; /* Coloca la imagen en el medio verticalmente */
+        transform: translateY(-50%); /* Ajusta la imagen para que esté centrada */
+        width: 240px; /* Aumenta el tamaño según necesites */
+        height: auto; /* Mantiene la proporción de la imagen */
+        cursor: pointer; /* Cambia el cursor al pasar sobre la imagen */
+        transition: transform 0.2s; /* Suaviza el efecto al cambiar */
+    }
+    
+    .ordenar-icon:hover {
+        transform: translateY(-50%) scale(1.1); /* Aumenta el tamaño al pasar el cursor */
+    }
+
+
+
+    .agregar-icon {
+
+        right: 20px; /* Espacio desde el lado derecho */
+        top: 40%; /* Coloca la imagen en el medio verticalmente */
+        transform: translateY(-50%); /* Ajusta la imagen para que esté centrada */
+        width: 240px; /* Aumenta el tamaño según necesites */
+        height: auto; /* Mantiene la proporción de la imagen */
+        cursor: pointer; /* Cambia el cursor al pasar sobre la imagen */
+        transition: transform 0.2s;
+        margin-right: 20px; /* Suaviza el efecto al cambiar */
+    }
+    
+    .agregar-icon:hover {
+        transform: translateY(-50%) scale(1.1); /* Aumenta el tamaño al pasar el cursor */
+    }
+
+        

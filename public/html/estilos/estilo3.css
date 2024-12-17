@@ -1,0 +1,193 @@
+/* Estilo general */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Cinzel', serif;
+}
+
+body {
+    background-color: #ddd4cd;
+    color: #2f3335;
+    text-align: center;
+    overflow-y: scroll; /* Permite que toda la página sea desplazable */
+}
+
+header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px 20px;
+    background-color: #2f3335;
+    color: #ddd4cd;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+header .logo img {
+    height: 50px;
+}
+
+nav table {
+    margin: 0 auto;
+}
+
+nav td {
+    padding: 0 15px;
+}
+
+nav a {
+    color: #ddd4cd;
+    text-decoration: none;
+    font-size: 1rem;
+}
+
+nav a:hover {
+    color: #bfb59e;
+}
+
+.user-icon img {
+    height: 40px;
+    cursor: pointer;
+}
+
+.sesion {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 60px 0;
+    background-color: #ddd4cd;
+}
+
+.orden-container {
+    width: 900px;
+    padding: 30px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    background-color: #ddd4cd;
+}
+
+h1 {
+    font-size: 2.5rem;
+    color: #2f3335;
+    margin-bottom: 20px;
+}
+
+.divider {
+    width: 40px;
+    height: 2px;
+    background-color: #2f3335;
+    margin: 10px auto;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+label {
+    font-size: 0.9em;
+    color: #666;
+    text-align: left;
+    margin-bottom: 5px;
+}
+
+input[type="text"],
+input[type="number"],
+input[type='tel'],
+input[type='email'],
+
+input[type='password']{
+    width: 100%;
+    padding: 8px;
+    font-size: 1em;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+select {
+    width: 100%;
+    padding: 8px;
+    font-size: 1em;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.tabla-container {
+    display: flex;
+    justify-content: center;
+}
+
+.tabla-productos {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.tabla-productos th,
+.tabla-productos td {
+    text-align: center;
+    padding: 10px;
+    border: 1px solid #ddd;
+}
+
+.tabla-productos tr:hover {
+    background-color: #f1f1f1;
+}
+
+.login-button {
+    background-color: #2f3335;
+    color: #ddd4cd;
+    padding: 10px;
+    font-size: 1em;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.login-button:hover {
+    background-color: #2f3335;
+}
+
+
+.modal {
+    display: none; /* Ocultar por defecto */
+    position: fixed; /* Fijo en la pantalla */
+    z-index: 1; /* Estar delante */
+    left: 0;
+    top: 0;
+    width: 100%; /* Ancho completo */
+    height: 100%; /* Alto completo */
+    overflow: auto; /* Permitir desplazamiento si es necesario */
+    background-color: rgb(0, 0, 0); /* Color de fondo negro */
+    background-color: rgba(0, 0, 0, 0.4); /* Fondo con opacidad */
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 15% auto; /* 15% desde arriba y centrado */
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%; /* Ancho del modal */
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}

@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clientes</title>
+    <link rel="stylesheet" href="../estilos/estilo.css" type="text/css" media="screen">
+    <link rel="stylesheet" href="../estilos/estilo3.css" type="text/css" media="screen">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/ionicons@5.5.2/dist/css/ionicons.min.css">
+   <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script> 
+   <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+   <style> ion-icon { font-size: 48px; /* Ajusta este valor para cambiar el tamaño del ícono */ color: #ddd4cd;  /* Puedes cambiar el color si quieres */ } </style>
+</head>
+<body>
+    
+    <header>
+        <nav>
+            <table>
+                <tr>
+                    <td>
+                        <a href="index.html">
+                            <div class="logo">
+                                <img src="images/logomini.png" alt="Logo de La Desesperanza">
+                            </div>
+                        </a>
+                    </td>
+                    <td><a href="productos.html">Productos</a></td>
+                    <td><a href="clientes.html">Clientes</a></td>
+                    <td><a href="pedidos.html">Pedidos</a></td>
+                </tr>
+            </table>
+        </nav>
+        <a href="perfil.html" class="user-icon">
+            <ion-icon name="person-outline"></ion-icon>
+        </a>
+    
+    </header>
+    <main>
+        <br><br><br><br>
+        <h1>Clientes</h1>
+        <br>
+        <table class="tabla-productos" id="tabla-clientes">
+            <thead>
+                <tr>
+                    <th>ID de usuario</th>
+                    <th>ID de cliente</th>
+                    <th>Nombre</th>
+                    <th>Teléfono</th>
+                    <th>Direccion</th>                 
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </main>
+
+    <script> 
+        async function cargarClientes() {
+            try {
+                const response = await fetch('/ExtraerClientes');
+                if (!response.ok) {
+                    throw new Error(`Error al cargar clientes: ${response.statusText}`);
+                }
+                const clientes = await response.json();
+
+                const tbody = document.querySelector('#tabla-clientes tbody');
+                tbody.innerHTML = '';
+
+                for (const cliente of clientes) {
+                    const response2 = await fetch('/ExtraerUsuarios/' + cliente.id_usuario);
+                    if (!response2.ok) {
+                        throw new Error(`Error al cargar usuario ${cliente.id_usuario}: ${response2.statusText}`);
+                    }
+                    const clienteUsuario = await response2.json();
+
+                    const response3 = await fetch('/ExtraerDirecciones/' + cliente.id_cliente);
+                    if (!response3.ok) {
+                        throw new Error(`Error al cargar dirección para cliente ${cliente.id_cliente}: ${response3.statusText}`);
+                    }
+                    const direccion = await response3.json();
+
+                    const tr = document.createElement('tr');
+                    tr.innerHTML = `
+                        <td>${cliente.id_usuario}</td>
+                        <td>${cliente.id_cliente}</td>
+                        <td>${clienteUsuario[0]?.nombre || 'Sin nombre'}</td>
+                        <td>${cliente.telefono}</td>
+                        <td>${direccion[0]?.calle || ''}, ${direccion[0]?.numero_exterior || ''}, ${direccion[0]?.numero_interior || ''}, ${direccion[0]?.colonia || ''}, ${direccion[0]?.alcaldia_municipio || ''}, ${direccion[0]?.estado || ''}, ${direccion[0]?.codigo_postal || ''}</td>
+                    `;
+                    tbody.appendChild(tr);
+                }
+            } catch (error) {
+                console.error('Error al cargar clientes:', error);
+                alert('Hubo un problema al cargar los datos. Por favor, inténtalo de nuevo más tarde.');
+            }
+        }
+
+
+        async function checar() {
+            try {
+                const response = await fetch('/check-clientesA');
+
+                if (response.redirected) {
+                    window.location.href = response.url;
+                } else {
+                    console.error('Error en la redirección:', response.status);
+                }
+            } catch (error) {
+                console.error('Error al llamar a /check-clientesA:', error);
+            }
+        }
+
+        async function cargar() {
+            await checar();                
+            await cargarClientes();    
+            }
+            window.onload = cargar;
+        
+    </script>
+    
+</body>
+</html>

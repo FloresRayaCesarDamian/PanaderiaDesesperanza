@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pedidos</title>
+    <link rel="stylesheet" href="../estilos/estilo.css" type="text/css" media="screen">
+    <link rel="stylesheet" href="../estilos/estilo3.css" type="text/css" media="screen">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/ionicons@5.5.2/dist/css/ionicons.min.css">
+   <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script> 
+   <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+   <style> ion-icon { font-size: 48px; /* Ajusta este valor para cambiar el tamaño del ícono */ color: #ddd4cd;  /* Puedes cambiar el color si quieres */ } </style>
+</head>
+<style>
+    .factura{
+        font-size: 30px !important; /* Usa !important para forzar el tamaño */
+            color: #2f3335;
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.4);
+        }
+        
+        .modal-content {
+            background-color: #fefefe;
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            max-width: 600px;
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        .modal-content .datos-factura {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start; /* Alinea los elementos hijos a la izquierda */
+        }
+        /* Estilo general para la sección de datos de la factura */
+.datos-factura {
+    font-family: 'Cinzel', serif;
+    color: #2f3335;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    max-width: 800px;
+    margin: auto;
+}
+
+/* Títulos */
+.datos-factura h3{
+    font-size: 1.2em;
+    color: #2f3335;
+    margin-bottom: 10px;
+}
+
+.datos-factura h2{
+    font-size: 1.2em;
+    color: #2f3335;
+    margin-bottom: 10px;
+}
+
+/* Estilo de la tabla */
+.tabla-productos-detalles {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+}
+
+/* Estilo de las celdas y encabezados */
+.tabla-productos-detalles th, .tabla-productos-detalles td {
+    padding: 10px;
+    text-align: left;
+    border: 1px solid #f1f1f1;
+}
+
+/* Encabezado de la tabla */
+.tabla-productos-detalles th {
+    background-color: #2f3335;
+    color: #f1f1f1;
+    font-weight: bold;
+}
+
+/* Filas pares y impares */
+.tabla-productos-detalles tr:nth-child(even) {
+    background-color: #f1f1f1;
+}
+
+.tabla-productos-detalles tr:hover {
+    background-color: #f1f1f1;
+}
+
+/* Estilo del total al final */
+#total-pedido {
+    font-size: 1.5em;
+    color: #d9534f;
+    font-weight: bold;
+}
+
+</style>
+<body>
+    
+    <header>
+        <nav>
+            <table>
+                <tr>
+                    <td>
+                        <a href="index.html">
+                            <div class="logo">
+                                <img src="images/logomini.png" alt="Logo de La Desesperanza">
+                            </div>
+                        </a>
+                    </td>
+                    <td><a href="productos.html">Productos</a></td>
+                    <td><a href="clientes.html">Clientes</a></td>
+                    <td><a href="pedidos.html">Pedidos</a></td>
+                </tr>
+            </table>
+        </nav>
+        <a href="perfil.html" class="user-icon">
+            <ion-icon name="person-outline"></ion-icon>
+        </a>
+    
+    </header>
+    <main>
+        <br><br><br><br>
+        <h1>Pedidos</h1>
+        <br>
+        <table class="tabla-productos" id="tabla-pedidos">
+            <thead>
+                <tr>
+                    <th>Numero del pedido</th>
+                    <th>ID de cliente</th>
+                    <th>Fecha</th>
+                    <th>Total</th>
+                    <th>Factura</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Los pedidos se agregarán aquí -->
+            </tbody>
+        </table>
+        <div id="modal" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <h1>La Desesperanza</h1>
+                
+                <h2>Factura de Pedido <span id="pedido-id"></span></h2>
+                <div class="datos-factura">
+                    <h3><strong>Numero del pedido:</strong> <span id="numero-pedido"></span></h3> 
+                    <br>
+                    <h3><strong>Fecha del pedido:</strong> <span id="fecha-pedido"></span></h3>
+                    <br>
+                    <h3>Detalles de los Productos:</h3>
+                    <table id="tabla-productos-detalles" class="tabla-productos-detalles">
+                        <thead>
+                            <tr>
+                                <th>Producto</th>
+                                <th>Cantidad</th>
+                                <th>Precio</th>
+                                <th>Sub Total</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Los detalles de los productos se agregarán aquí -->
+                        </tbody>
+                    </table>
+                    <br>
+                    <h3><strong>Total:</strong> <span id="total-pedido"></span></h3>
+                </div>
+            </div>
+        </div>
+        
+    </main>
+
+    <script>
+
+
+            
+        
+            async function cargarPedidos() {
+                const tbody = document.querySelector('#tabla-pedidos tbody');
+                tbody.innerHTML = ''; // Limpiar contenido previo
+
+                const response = await fetch('/api/pedidos'); // Obtiene los pedidos
+                const pedidos = await response.json();
+
+                for (const pedido of pedidos) {
+                    // Obtener productos para el pedido
+                    const response2 = await fetch(`/api/productos/${pedido.id_pedido}`);
+                    const productos = await response2.json();
+
+
+
+
+                    // Crear fila para el pedido
+                    const fechaFormateada = pedido.fecha_pedido.slice(0, 10);
+                    const tr = document.createElement('tr');
+                    tr.innerHTML = `
+                        <td>${pedido.id_pedido}</td>
+                        <td>${pedido.id_cliente}</td>
+                        <td>${fechaFormateada}</td>
+                        <td>${"$"+pedido.precio_total}</td>
+                        <td><a href="#"><ion-icon name="receipt-outline" class="factura" data-id="${pedido.id_pedido}"></ion-icon><a></td>
+                    `;
+                    tbody.appendChild(tr);
+                    const facturaIcon = tr.querySelector('.factura');
+                    facturaIcon.addEventListener('click', abrirModal);
+
+
+                }
+            }
+            
+            
+
+            
+
+            async function abrirModal(event) {
+                try {
+                    const idPedido = event.target.getAttribute('data-id');
+
+                    // Obtiene los datos del pedido desde la API
+                    const responsePedido = await fetch(`/api/pedidosF?id_pedido=${idPedido}`);
+                    const pedido = await responsePedido.json();
+
+                    // Asigna valores al modal
+                    document.getElementById('numero-pedido').textContent = idPedido || 'N/A';
+                    document.getElementById('fecha-pedido').textContent = pedido.fecha_pedido.slice(0,10) || 'N/A';
+                    document.getElementById('total-pedido').textContent = " $"+pedido.precio_total || 'N/A';
+
+                    // Obtiene los productos del pedido desde la API
+                    const responseProductos = await fetch(`/api/pedido/productos?id_pedido=${idPedido}`);
+                    const productos = await responseProductos.json();
+
+                    // Llena la tabla de productos
+                    const tbody = document.querySelector('#tabla-productos-detalles tbody');
+                    tbody.innerHTML = ''; // Limpia cualquier dato anterior
+
+                    for (let i = 0; i < productos.length; i++) {
+                        
+                        const tr = document.createElement('tr');
+                        tr.innerHTML = `
+                            <td>${productos[i].nombre_producto}</td>
+                            <td>${productos[i].cantidad}</td>
+                            <td>${productos[i].precio_unitario}</td>
+                            <td>${productos[i].subtotal}</td>
+                        `;
+                        tbody.appendChild(tr);
+                    }
+
+                    // Muestra el modal
+                    document.getElementById('modal').style.display = 'block';
+                } catch (error) {
+                    console.error('Error al abrir el modal:', error);
+                }
+            }
+
+
+
+
+            // Cierra el modal
+            function cerrarModal() {
+                document.getElementById('modal').style.display = 'none';
+            }
+            async function checar() {
+                try {
+                    // Llamar a la ruta '/check-productos'
+                    const response = await fetch('/check-pedidosA');
+
+                    // Redirigir a la página que responde el servidor
+                    if (response.redirected) {
+                        window.location.href = response.url;
+                    } else {
+                        console.error('Error en la redirección:', response.status);
+                    }
+                } catch (error) {
+                    console.error('Error al llamar a /check-pedidosA:', error);
+                }
+            }
+            
+
+            async function cargar() {
+                await cargarPedidos();
+                await checar();
+                
+            }
+
+
+            window.onload = cargar;
+            document.querySelector('.close').addEventListener('click', cerrarModal);
+
+    </script>
+    
+</body>
+</html>

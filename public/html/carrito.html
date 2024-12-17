@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carrito</title>
+    <link rel="stylesheet" href="estilos/estilo.css" type="text/css" media="screen">
+    <link rel="stylesheet" href="../estilos/estilo3.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/ionicons@5.5.2/dist/css/ionicons.min.css">
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script> 
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+    <style>
+        ion-icon { font-size: 48px; /* Ajusta este valor para cambiar el tamaño del ícono */ color: #ddd4cd;  /* Puedes cambiar el color si quieres */ } 
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Cinzel', serif;
+            background-color: #ddd4cd;
+            color: #333;
+        }
+
+        main {
+            padding: 20px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        section {
+            margin-bottom: 20px;
+        }
+
+        .tabla-carrito {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        .tabla-carrito th, .tabla-carrito td {
+            padding: 12px;
+            text-align: left;
+            border: 1px solid #ddd4cd;
+        }
+
+        .tabla-carrito th {
+            background-color: #ddd4cd;
+        }
+
+        
+
+        .total {
+            background-color: #ddd4cd;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        #total {
+            font-size: 24px;
+            margin: 10px 0;
+        }
+
+        #comprar {
+            
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            font-size: 18px;
+        }
+
+        
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background: #ddd4cd;
+            padding: 20px;
+            border-radius: 5px;
+
+            width: 300px;
+            text-align: center;
+        }
+
+        .modal-actions {
+            margin-top: 20px;
+        }
+
+        .modal-actions button {
+            margin: 5px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <table>
+                <tr>
+                    <td>
+                        <a href="index.html">
+                            <div class="logo">
+                                <img src="images/logomini.png" alt="Logo de La Desesperanza">
+                            </div>
+                        </a>
+                    </td>
+                    <td><a href="productos.html">Productos</a></td>
+                    <td><a href="pedidos.html">Pedidos</a></td>
+                    <td><a href="carrito.html"><ion-icon name="cart-outline" class="minis"></ion-icon></a></td>
+                </tr>
+            </table>
+        </nav>
+        <a href="perfil.html" class="user-icon">
+            <ion-icon name="person-outline"></ion-icon>
+        </a>
+    </header>
+
+    <main><br><br><br><br>
+        <h1>Carrito de Compras</h1>
+
+        <section class="productos">
+            <h2>Productos en tu carrito</h2>
+            <br><br>
+            <table class="tabla-carrito" id="productos-lista">
+                <thead>
+                    <tr>
+                        <th>Producto</th>
+                        <th>Cantidad</th>
+                        <th>Precio</th>
+                        <th>Subtotal</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody id="carrito-items">
+                    <!-- Los productos se generarán dinámicamente aquí -->
+                </tbody>
+            </table>
+        </section>
+
+        <section class="total">
+            <h2>Total</h2>
+            <p id="total">$0.00</p>
+            <button id="comprar" class="login-button">Comprar</button>
+        </section>
+
+
+        <div id="modal" class="modal">
+            <div class="modal-content">
+                <h2>Modificar Cantidad</h2>
+                <label for="nueva-cantidad">Nueva Cantidad:</label>
+                <input type="number" id="nueva-cantidad" min="1">
+                <div class="modal-actions">
+                    <button class="login-button guardar" data-action="guardar">Guardar</button>
+
+                    <button id="cancelar" class="login-button">Cancelar</button>
+                </div>
+            </div>
+        </div>
+        
+        
+    </main>
+
+    <script>
+        let productoActual = null; // Variable para almacenar el índice del producto que se está editando
+
+        function abrirModal(index) {
+            productoActual = index;
+            const modal = document.getElementById('modal');
+            const carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+            document.getElementById('nueva-cantidad').value = carrito[index].cantidad;
+            modal.style.display = 'flex';
+        }
+
+        function cerrarModal() {
+            productoActual = null;
+            const modal = document.getElementById('modal');
+            modal.style.display = 'none';
+        }
+
+        function guardarCantidad() {
+            const nuevaCantidad = parseInt(document.getElementById('nueva-cantidad').value, 10);
+            if (nuevaCantidad > 0 && productoActual !== null) {
+                const carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+                carrito[productoActual].cantidad = nuevaCantidad;
+                localStorage.setItem('carrito', JSON.stringify(carrito));
+                cargarCarrito();
+                cerrarModal();
+            } else {
+                alert('Por favor, ingresa una cantidad válida.');
+            }
+        }
+
+        document.addEventListener('click', (event) => {
+            if (event.target.classList.contains('modificar')) {
+                abrirModal(event.target.dataset.index);
+            } else if (event.target.classList.contains('guardar')) {
+                guardarCantidad();
+            } else if (event.target.id === 'cancelar') {
+                cerrarModal();
+            }
+        });
+
+
+        window.onclick = function(event) {
+            const modal = document.getElementById('modal');
+            if (event.target === modal) {
+                cerrarModal();
+            }
+        };
+
+        async function cargarCarrito() {
+            const carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+            const carritoItems = document.getElementById('carrito-items');
+            const totalElement = document.getElementById('total');
+
+
+
+            const response = await fetch('/api/get-user-id');
+
+            // Suponiendo que la respuesta es un objeto con el ID del usuario
+            const user = await response.json();
+
+
+            // Asegúrate de que la respuesta contenga el ID del usuario
+            const currentUserID = user.id_usuario;
+
+            // Filtra los productos del carrito por userID
+            const carritoFiltrado = carrito.filter(producto => producto.id_usuario === currentUserID);
+
+            carritoItems.innerHTML = '';
+            let total = 0;
+
+            carritoFiltrado.forEach((producto, index) => {
+                const row = document.createElement('tr');
+                
+                const subtotal = producto.cantidad * producto.precio_producto;
+
+                row.innerHTML = `
+                    <td>${producto.nombre_producto}</td>
+                    <td>${producto.cantidad}</td>
+                    <td>$${producto.precio_producto}</td>
+                    <td>$${subtotal}</td>
+                    <td>
+                        <button class="login-button" data-index="${index}" data-action="eliminar">Eliminar</button>
+                        <button class="login-button" data-index="${index}" data-action="modificar">Modificar</button>
+                    </td>
+                `;
+
+                carritoItems.appendChild(row);
+                total += subtotal;
+            });
+
+            totalElement.textContent = `$${total.toFixed(2)}`;
+
+            document.querySelectorAll('.login-button').forEach(button => {
+                button.onclick = (event) => {
+                    const action = event.target.dataset.action;
+                    const index = event.target.dataset.index;
+
+                    if (action === "eliminar") {
+                        eliminarProducto(index);
+                    } else if (action === "modificar") {
+                        abrirModal(index);
+                    }
+                };
+            });
+        }
+
+        
+
+        function eliminarProducto(index) {
+            const index1 = index;
+            const carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+
+            carrito.splice(index1, 1);
+            localStorage.setItem('carrito', JSON.stringify(carrito));
+            cargarCarrito();
+        }
+
+
+
+        //nuevo
+        async function comprarCarrito() {
+            try {
+                const totalElement = document.getElementById('total');
+                const total = parseFloat(totalElement.innerText.replace('$', ''));
+                let carrito = JSON.parse(localStorage.getItem('carrito'));
+
+                if (!Array.isArray(carrito)) carrito = [];
+
+                if (isNaN(total) || total <= 0) {
+                    alert('El total no es válido.');
+                    return;
+                }
+
+
+                const response1 = await fetch('/api/get-user-id');
+
+                // Suponiendo que la respuesta es un objeto con el ID del usuario
+                const user = await response1.json();
+
+
+                // Asegúrate de que la respuesta contenga el ID del usuario
+                const idUsuario = user.id_usuario;
+
+
+                 // Verificar si el cliente tiene una dirección registrada
+                const direccionResponse = await fetch(`/api/verificar-direccion?idUsuario=${idUsuario}`);
+                const direccionData = await direccionResponse.json();
+
+                if (!direccionData || !direccionData.tieneDireccion) {
+                    alert('Debe registrar una dirección antes de continuar con la compra.');
+                    window.location.href = 'perfil.html'; // Redirige al perfil
+                    return;
+                }
+                const carritoFiltrado = carrito.filter(item => item.id_usuario === idUsuario);
+
+                if (carritoFiltrado.length === 0) {
+                    alert('No hay productos en el carrito para este usuario.');
+                    return;
+                }
+
+                // Serializa el carrito como JSON y codifícalo para la URL
+                const carritoQuery = encodeURIComponent(JSON.stringify(carritoFiltrado));
+
+                // Enviar `carrito` y `total` como parte de la URL
+                const response = await fetch(`/api/ComprarCarrito?total=${total}&carrito=${carritoQuery}`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                });
+
+
+                if (response.ok) {
+                    const data = await response.json();
+                    alert(`Compra realizada con éxito. ID del pedido: ${data.pedidoId}`);
+
+                    const carritoActualizado = carrito.filter(item => item.id_usuario !== idUsuario);
+                    localStorage.setItem('carrito', JSON.stringify(carritoActualizado));
+                    cargarCarrito();
+                } else {
+                    const errorData = await response.json();
+                    alert(`Error al realizar la compra: ${errorData.error}`);
+                }
+            } catch (error) {
+                console.error('Error al realizar la compra:', error);
+                alert('Hubo un problema al completar la compra. Intenta nuevamente.');
+            }
+        }
+
+
+
+
+
+        document.getElementById('comprar').addEventListener('click', comprarCarrito);
+
+
+
+
+
+
+
+
+
+        //hasta aqui termina lo nuevo
+
+
+
+        async function checar() {
+                try {
+                    // Llamar a la ruta '/check-productos'
+                    const response = await fetch('/check-carrito');
+
+                    // Redirigir a la página que responde el servidor
+                    if (response.redirected) {
+                        window.location.href = response.url;
+                    } else {
+                        console.error('Error en la redirección:', response.status);
+                    }
+                } catch (error) {
+                    console.error('Error al llamar a /check-carrito:', error);
+                }
+            }
+        async function cargar() {
+                
+                
+                await checar();
+                await cargarCarrito();
+            }
+
+        window.onload = cargar;
+        
+
+        
+    </script>
+</body>
+</html>

@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Productos</title>
+    <link rel="stylesheet" href="../estilos/estilo.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/ionicons@5.5.2/dist/css/ionicons.min.css">
+   <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script> 
+   <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+   <style> ion-icon { font-size: 48px; /* Ajusta este valor para cambiar el tamaño del ícono */ color: rgb(255, 255, 255); /* Puedes cambiar el color si quieres */ } </style>
+</head>
+<body>
+    
+    <header>
+        <nav>
+            <table>
+                <tr>
+                    <td>
+                        <a href="index.html">
+                            <div class="logo">
+                                <img src="images/logomini.png" alt="Logo de La Desesperanza">
+                            </div>
+                        </a>
+                    </td>
+                    <td><a href="productos.html">Productos</a></td>
+                    <td><a href="pedidos.html">Pedidos</a></td>
+                    <td><a href="carrito.html"><ion-icon name="cart-outline" class="minis"></ion-icon></a></td>
+                </tr>
+            </table>
+        </nav>
+        <a href="perfil.html" class="user-icon">
+            <ion-icon name="person-outline"></ion-icon>
+        </a>
+    
+    </header>
+    
+    <main>
+        <br><br><br><br>
+        <h1>PRODUCTOS</h1>
+        <br>
+        <br><br><br><br>
+        <h3>PRODUCTOS DE TEMPORADA</h3>
+        <div class="product-container" id="product-container-temp">
+        </div>
+        <br>
+        <br><br><br><br>
+        <h3>PRODUCTOS SALADOS</h3><br>
+        <div class="product-sal" id="product-sal"></div><br><br>
+        <br>
+        <br><br><br><br>
+        <h3>PRODUCTOS DULCES</h3>
+        <div class="product-container-dulce" id="product-container-dulce"></div>
+        <br>
+        <br><br><br><br>
+        <h3>PASTELES</h3>
+        <div class="product-container-pasteles" id="product-container-pasteles"></div>
+        <br>
+        <br><br><br><br>
+
+    </main>
+        <a href="añadirAlCarrito.html">
+            <img src="images/ordenar.png" alt="Ordenar" class="ordenar-icon">
+        </a>
+    <script>
+        
+        //TEMPORADA
+        async function cargarProductosTemp() {
+            try {
+                const response = await fetch('/obtener-productos');
+                if (!response.ok) throw new Error('Error en la respuesta de la red');
+        
+                const productos = await response.json();
+                const contenedor = document.querySelector('.product-container');
+                const categorias = {
+                    'Temporada': [],
+                    
+                };
+        
+                productos.forEach(producto => {
+                    if (producto.categoria && categorias[producto.categoria] !== undefined) {
+                        categorias[producto.categoria].push(producto);
+                    } else {
+                        console.warn(`Categoría desconocida: ${producto.categoria}`);
+                    }
+                });
+
+                for (const [categoria, items] of Object.entries(categorias)) {
+                    
+                    const productContainer = document.createElement('div');
+                    productContainer.classList.add('product-container');
+        
+                    items.forEach((producto, index) => {
+                        const card = document.createElement('div');
+                        card.classList.add('product-card');
+        
+                        card.innerHTML = `
+                            <span class="product-number">${producto.id_producto}</span>
+                            <img src="${producto.imagen_producto}" alt="${producto.nombre_producto}">
+                            <span class="product-name">${producto.nombre_producto}</span>
+                            <br>
+                            <span class="product-cantidad">Cantidad:${producto.cantidad_producto}</span>
+                            <br>
+                            <br>
+                            <span class="product-price">$${parseFloat(producto.precio_producto).toFixed(2)}</span>
+                        `;
+        
+                        productContainer.appendChild(card); 
+                    });
+                    contenedor.appendChild(productContainer);
+                    const brFinal = document.createElement('br');
+                    contenedor.appendChild(brFinal); 
+                }
+            } catch (error) {
+                console.error('Error al cargar productos:', error);
+                const contenedor = document.querySelector('.product-container');
+                contenedor.innerHTML = '<p>Error al cargar productos.</p>';
+            }
+        }
+    
+        // SALADOS
+
+        async function cargarProductosSal() {
+            try {
+                const response = await fetch('/obtener-productos');
+                if (!response.ok) throw new Error('Error en la respuesta de la red');
+        
+                const productos = await response.json();
+                const contenedor = document.querySelector('.product-sal');
+                const categorias = {
+                    'Salado': [],
+                    
+                };
+        
+                productos.forEach(producto => {
+                    if (producto.categoria && categorias[producto.categoria] !== undefined) {
+                        categorias[producto.categoria].push(producto);
+                    } else {
+                        console.warn(`Categoría desconocida: ${producto.categoria}`);
+                    }
+                });
+
+                for (const [categoria, items] of Object.entries(categorias)) {
+                    
+                    const productContainer = document.createElement('div');
+                    productContainer.classList.add('product-container');
+        
+                    items.forEach((producto, index) => {
+                        const card = document.createElement('div');
+                        card.classList.add('product-card');
+        
+                        card.innerHTML = `
+                            <span class="product-number">${producto.id_producto}</span>
+                            <img src="${producto.imagen_producto}" alt="${producto.nombre_producto}">
+                            <span class="product-name">${producto.nombre_producto}</span>
+                            <br>
+                            <span class="product-cantidad">Cantidad:${producto.cantidad_producto}</span>
+                            <br>
+                            <br>
+                            <span class="product-price">$${parseFloat(producto.precio_producto).toFixed(2)}</span>
+                        `;
+        
+                        productContainer.appendChild(card); 
+                    });
+                    contenedor.appendChild(productContainer);
+                    const brFinal = document.createElement('br');
+                    contenedor.appendChild(brFinal); 
+                }
+            } catch (error) {
+                console.error('Error al cargar productos:', error);
+                const contenedor = document.querySelector('.product-container');
+                contenedor.innerHTML = '<p>Error al cargar productos.</p>';
+            }
+        }
+
+        //DULCES
+
+        async function cargarProductosDulce() {
+            try {
+                const response = await fetch('/obtener-productos');
+                if (!response.ok) throw new Error('Error en la respuesta de la red');
+        
+                const productos = await response.json();
+                const contenedor = document.querySelector('.product-container-dulce');
+                const categorias = {
+                    'Dulce': [],
+                    
+                };
+        
+                productos.forEach(producto => {
+                    if (producto.categoria && categorias[producto.categoria] !== undefined) {
+                        categorias[producto.categoria].push(producto);
+                    } else {
+                        console.warn(`Categoría desconocida: ${producto.categoria}`);
+                    }
+                });
+
+                for (const [categoria, items] of Object.entries(categorias)) {
+                    
+                    const productContainer = document.createElement('div');
+                    productContainer.classList.add('product-container');
+        
+                    items.forEach((producto, index) => {
+                        const card = document.createElement('div');
+                        card.classList.add('product-card');
+        
+                        card.innerHTML = `
+                            <span class="product-number">${producto.id_producto}</span>
+                            <img src="${producto.imagen_producto}" alt="${producto.nombre_producto}">
+                            <span class="product-name">${producto.nombre_producto}</span>
+                            <br>
+                            <span class="product-cantidad">Cantidad:${producto.cantidad_producto}</span>
+                            <br>
+                            <br>
+                            <span class="product-price">$${parseFloat(producto.precio_producto).toFixed(2)}</span>
+                        `;
+        
+                        productContainer.appendChild(card); 
+                    });
+                    contenedor.appendChild(productContainer);
+                    const brFinal = document.createElement('br');
+                    contenedor.appendChild(brFinal); 
+                }
+            } catch (error) {
+                console.error('Error al cargar productos:', error);
+                const contenedor = document.querySelector('.product-container');
+                contenedor.innerHTML = '<p>Error al cargar productos.</p>';
+            }
+        }
+
+        //PASTELES
+
+        async function cargarProductosPasteles() {
+            try {
+                const response = await fetch('/obtener-productos');
+                if (!response.ok) throw new Error('Error en la respuesta de la red');
+        
+                const productos = await response.json();
+                const contenedor = document.querySelector('.product-container-pasteles');
+                const categorias = {
+                    'Pastel': [],
+                    
+                };
+        
+                productos.forEach(producto => {
+                    if (producto.categoria && categorias[producto.categoria] !== undefined) {
+                        categorias[producto.categoria].push(producto);
+                    } else {
+                        console.warn(`Categoría desconocida: ${producto.categoria}`);
+                    }
+                });
+
+                for (const [categoria, items] of Object.entries(categorias)) {
+                    
+                    const productContainer = document.createElement('div');
+                    productContainer.classList.add('product-container');
+        
+                    items.forEach((producto, index) => {
+                        const card = document.createElement('div');
+                        card.classList.add('product-card');
+        
+                        card.innerHTML = `
+                            <span class="product-number">${producto.id_producto}</span>
+                            <img src="${producto.imagen_producto}" alt="${producto.nombre_producto}">
+                            <span class="product-name">${producto.nombre_producto}</span>
+                            <br>
+                            <span class="product-cantidad">Cantidad:${producto.cantidad_producto}</span>
+                            <br>
+                            <br>
+                            <span class="product-price">$${parseFloat(producto.precio_producto).toFixed(2)}</span>
+                        `;
+        
+                        productContainer.appendChild(card); 
+                    });
+                    contenedor.appendChild(productContainer);
+                    const brFinal = document.createElement('br');
+                    contenedor.appendChild(brFinal); 
+                }
+            } catch (error) {
+                console.error('Error al cargar productos:', error);
+                const contenedor = document.querySelector('.product-container');
+                contenedor.innerHTML = '<p>Error al cargar productos.</p>';
+            }
+        }
+
+
+        async function checar() {
+            try {
+                const response = await fetch('/check-productos');
+                if (response.redirected) {
+                    window.location.href = response.url;
+                } else {
+                    console.error('Error en la redirección:', response.status);
+                }
+            } catch (error) {
+                console.error('Error al llamar a /check-productos:', error);
+            }
+        }
+       
+        async function cargarProductos(){
+            await cargarProductosTemp();
+            await cargarProductosSal();
+            await cargarProductosDulce();
+            await cargarProductosPasteles();
+            await checar();  
+        }
+        window.onload = cargarProductos;
+    </script>
+    
+</body>
+</html>

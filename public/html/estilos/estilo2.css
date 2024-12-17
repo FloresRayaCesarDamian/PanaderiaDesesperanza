@@ -1,0 +1,220 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Cinzel', serif;
+}
+
+body {
+    
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #ddd4cd;
+}
+header {
+
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px 20px;
+    background-color: #2f3335;
+    color: #ddd4cd;
+}
+
+header .logo img {
+    height: 50px;
+}
+nav table {
+    margin: 0 auto;
+}
+
+nav td {
+    padding: 0 15px;
+}
+
+nav a {
+    color: #ddd4cd;
+    text-decoration: none;
+    font-size: 1rem;
+}
+
+nav a:hover {
+    color: #bfb59e;
+}
+
+.user-icon img {
+    height: 40px;
+    cursor: pointer;
+}
+.sesion{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 90vh;
+    
+    background-color: #ddd4cd;
+}
+
+.orden{
+    
+    background-color: #ddd4cd;
+    width: 300px;
+    padding: 30px;
+    border: 1px solid #ddd4cd;
+    border-radius: 8px;
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    background-color: #ddd4cd;
+}
+
+.login-container {
+    width: 300px;
+    padding: 30px;
+    border: 1px solid #ddd4cd;
+    border-radius: 8px;
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    background-color: #ddd4cd;
+}
+
+.orden-container {
+    width: 900px;
+    padding: 30px;
+    border: 1px solid #ddd4cd;
+    border-radius: 8px;
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    background-color: #ddd4cd;
+    height: 600px; /* Ajusta esta altura según tus necesidades */
+        overflow-y: auto; /* Permite el desplazamiento vertical */
+}
+
+
+h2 {
+    font-size: 1.5em;
+    color: #2f3335;
+    margin-bottom: 10px;
+}
+
+.divider {
+    width: 40px;
+    height: 2px;
+    background-color: #2f3335;
+    margin: 10px auto;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+label {
+    font-size: 0.9em;
+    color: #666;
+    text-align: left;
+    margin-bottom: 5px;
+}
+
+input[type="text"],
+input[type="password"],
+input[type="number"] {
+    width: 100%;
+    padding: 8px;
+    font-size: 1em;
+    border: 1px solid #ddd4cd;
+    border-radius: 4px;
+}
+
+select{
+    width: 100%;
+    padding: 8px;
+    font-size: 1em;
+    border: 1px solid #ddd4cd;
+    border-radius: 4px;
+}
+
+
+.forgot-password {
+    font-size: 0.8em;
+    color: #666;
+    text-align: right;
+    text-decoration: none;
+    margin-top: 5px;
+}
+
+.forgot-password:hover {
+    text-decoration: underline;
+}
+
+.login-button {
+    background-color: #2f3335;
+    color: #ddd4cd;
+    padding: 10px;
+    font-size: 1em;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.login-button:hover {
+    background-color: #2f3335;
+}
+.orden-button {
+    background-color: #2f3335;
+    color: #ddd4cd;
+    padding: 10px;
+    font-size: 1em;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+
+
+.register-text {
+    font-size: 0.8em;
+    color: #666;
+    margin-top: 15px;
+}
+
+.register-text a {
+    color: #2f3335;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.register-text a:hover {
+    text-decoration: underline;
+}
+
+
+
+.tabla-container {
+    height: 200px; /* Ajusta esta altura según tus necesidades */
+    overflow-y: auto; /* Permite el desplazamiento vertical */
+    margin-top: 10px; /* Espacio superior para la tabla */
+}
+
+.tabla-productos {
+    width: 100%;
+    border-collapse: collapse; /* Elimina espacios entre celdas */
+}
+
+.tabla-productos th, .tabla-productos td {
+    padding: 12px; /* Espaciado interno de celdas */
+    text-align: left; /* Alineación de texto */
+    border-bottom: 1px solid #ddd4cd; /* Línea divisoria entre filas */
+}
+
+.tabla-productos th {
+    background-color: #ddd4cd; /* Color de fondo para encabezados */
+    color: #2f3335; /* Color de texto para encabezados */
+    font-weight: bold; /* Negrita en encabezados */
+}
+
+.tabla-productos tr:hover {
+    background-color: #ddd4cd; /* Color de fondo al pasar el mouse */
+}
